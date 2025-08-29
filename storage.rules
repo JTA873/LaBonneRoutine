@@ -1,0 +1,33 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Images pour les événements - upload par admins seulement
+    match /events/{allPaths=**} {
+      allow read: if true; // Lecture publique des images
+      allow write: if request.auth != null && 
+                   exists(/databases/(default)/documents/users/$(request.auth.uid)) &&
+                   get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Avatars utilisateurs - chaque utilisateur peut gérer le sien
+    match /avatars/{userId} {
+      allow read: if true; // Lecture publique des avatars
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Assets généraux - upload par admins seulement
+    match /assets/{allPaths=**} {
+      allow read: if true; // Lecture publique
+      allow write: if request.auth != null && 
+                   exists(/databases/(default)/documents/users/$(request.auth.uid)) &&
+                   get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Restrictions de taille et type de fichier
+    match /{allPaths=**} {
+      allow write: if request.resource.size < 5 * 1024 * 1024 && // Max 5MB
+                   request.resource.contentType.matches('image/.*');
+    }
+  }
+}

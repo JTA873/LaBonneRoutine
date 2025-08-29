@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réserver - La Bonne Routine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/styles-modern.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/calendar.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="assets/logo.svg" alt="La Bonne Routine" width="40" height="40">
+                    <a href="index.html">La Bonne Routine</a>
+                </div>
+                <nav class="nav">
+                    <a href="index.html">Accueil</a>
+                    <a href="events.html">Événements</a>
+                    <a href="contact.html">Contact</a>
+                    <div class="auth-nav">
+                        <a href="login.html" id="auth-login" class="btn btn-outline">Se connecter</a>
+                        <a href="dashboard.html" id="auth-dashboard" class="btn btn-outline" style="display: none;">Mon compte</a>
+                        <button id="auth-logout" class="btn btn-outline" style="display: none;">Se déconnecter</button>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="reserve-page">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Réserver une séance</h1>
+                <p>Choisissez votre créneau et réservez votre séance de coaching personnalisé</p>
+            </div>
+
+            <!-- Auth Warning -->
+            <div id="auth-warning" class="warning-banner" style="display: none;">
+                <div class="warning-content">
+                    <i data-lucide="info"></i>
+                    <span>Connectez-vous pour pouvoir réserver une séance</span>
+                    <a href="login.html" class="btn btn-primary btn-sm">Se connecter</a>
+                </div>
+            </div>
+
+            <!-- Calendrier Moderne -->
+            <div class="booking-section">
+                <div id="modern-calendar-container">
+                    <!-- Le calendrier moderne sera initialisé ici -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer avec lien QR Code -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>La Bonne Routine</h4>
+                    <p>Votre coach sportif personnel pour une remise en forme adaptée à vos besoins.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📧 contact@labonneroutine.fr</p>
+                    <p>📱 +33 6 XX XX XX XX</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Accès rapide</h4>
+                    <div class="footer-qr">
+                        <a href="#" id="qr-link" class="qr-code-link">
+                            <i data-lucide="qr-code"></i>
+                            QR Code du site
+                        </a>
+                        <p class="qr-hint">Scannez pour accéder rapidement au site</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 La Bonne Routine. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal QR Code -->
+    <div id="qr-modal" class="modal">
+        <div class="modal-content qr-modal-content">
+            <div class="modal-header">
+                <h3>QR Code - La Bonne Routine</h3>
+                <button class="modal-close" onclick="closeQrModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="qr-code-display">
+                    <div id="qr-code-container">
+                        <!-- QR code sera généré ici -->
+                    </div>
+                    <p class="qr-instructions">
+                        Scannez ce QR code avec votre smartphone pour accéder rapidement au site
+                    </p>
+                    <div class="qr-actions">
+                        <button class="btn btn-outline btn-sm" onclick="downloadQr()">
+                            <i data-lucide="download"></i>
+                            Télécharger
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="shareQr()">
+                            <i data-lucide="share-2"></i>
+                            Partager
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/modern-calendar.js"></script>
+    <script type="module" src="js/app-simple.js"></script>
+    <script>
+    // Générateur de QR Code simple
+    function generateQRCode(text, size = 200) {
+        // Utiliser QR Server API pour générer le QR code
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(text)}`;
+        return qrUrl;
+    }
+
+    // Variables globales
+    let calendar;
+    let currentUser = null;
+
+    // Initialisation au chargement de la page
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            // Initialiser l'app
+            if (window.SimpleApp) {
+                const app = new SimpleApp();
+                await app.init();
+                window.app = app;
+                currentUser = app.currentUser;
+            }
+
+            // Initialiser le calendrier moderne
+            calendar = new ModernCalendar('modern-calendar-container');
+            
+            // Écouter les événements du calendrier
+            document.getElementById('modern-calendar-container').addEventListener('dateSelected', (e) => {
+                console.log('Date sélectionnée:', e.detail.date);
+                updateAuthWarning();
+            });
+
+            document.getElementById('modern-calendar-container').addEventListener('slotSelected', (e) => {
+                console.log('Créneau sélectionné:', e.detail.slotId);
+                if (!currentUser) {
+                    showAuthWarning();
+                }
+            });
+
+            // Initialiser les icônes Lucide
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Gestion du QR Code
+            setupQRCode();
+
+            // Mettre à jour l'interface auth
+            updateAuthWarning();
+
+        } catch (error) {
+            console.error('Erreur lors de l\'initialisation:', error);
+        }
+    });
+
+    function updateAuthWarning() {
+        const authWarning = document.getElementById('auth-warning');
+        if (!currentUser && authWarning) {
+            authWarning.style.display = 'block';
+        } else if (authWarning) {
+            authWarning.style.display = 'none';
+        }
+    }
+
+    function showAuthWarning() {
+        if (window.app) {
+            window.app.showMessage('Connectez-vous pour pouvoir réserver', 'info');
+        }
+    }
+
+    // Configuration du QR Code
+    function setupQRCode() {
+        const qrLink = document.getElementById('qr-link');
+        if (qrLink) {
+            qrLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showQRModal();
+            });
+        }
+    }
+
+    function showQRModal() {
+        const currentUrl = window.location.origin + window.location.pathname.replace('reserve.html', 'index.html');
+        const qrCodeUrl = generateQRCode(currentUrl, 300);
+        
+        const qrContainer = document.getElementById('qr-code-container');
+        if (qrContainer) {
+            qrContainer.innerHTML = `
+                <img src="${qrCodeUrl}" alt="QR Code La Bonne Routine" class="qr-image">
+                <p class="qr-url">${currentUrl}</p>
+            `;
+        }
+
+        const qrModal = document.getElementById('qr-modal');
+        if (qrModal) {
+            qrModal.style.display = 'flex';
+            qrModal.classList.add('show');
+        }
+    }
+
+    function closeQrModal() {
+        const qrModal = document.getElementById('qr-modal');
+        if (qrModal) {
+            qrModal.classList.remove('show');
+            setTimeout(() => {
+                qrModal.style.display = 'none';
+            }, 300);
+        }
+    }
+
+    function downloadQr() {
+        const qrImage = document.querySelector('.qr-image');
+        if (qrImage) {
+            const link = document.createElement('a');
+            link.href = qrImage.src;
+            link.download = 'qr-code-la-bonne-routine.png';
+            link.click();
+        }
+    }
+
+    async function shareQr() {
+        const currentUrl = window.location.origin + window.location.pathname.replace('reserve.html', 'index.html');
+        
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: 'La Bonne Routine',
+                    text: 'Découvrez La Bonne Routine - Votre coach sportif personnel',
+                    url: currentUrl
+                });
+            } catch (error) {
+                console.log('Partage annulé');
+            }
+        } else {
+            // Fallback : copier l'URL
+            navigator.clipboard.writeText(currentUrl).then(() => {
+                if (window.app) {
+                    window.app.showMessage('URL copiée dans le presse-papiers', 'success');
+                }
+            });
+        }
+    }
+
+    // Fermer les modals en cliquant à l'extérieur
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+            const modal = e.target;
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+    });
+
+    // Gestion des touches
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const openModal = document.querySelector('.modal.show');
+            if (openModal) {
+                closeQrModal();
+            }
+        }
+    });
+    </script>
+</body>
+</html>

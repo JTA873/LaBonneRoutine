@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon espace - La Bonne Routine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/plugin/relativeTime.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="assets/logo.svg" alt="La Bonne Routine" width="40" height="40">
+                    <a href="index.html">La Bonne Routine</a>
+                </div>
+                <nav class="nav">
+                    <a href="index.html">Accueil</a>
+                    <a href="events.html">Événements</a>
+                    <a href="contact.html">Contact</a>
+                    <div class="auth-nav">
+                        <span id="user-name" class="user-name"></span>
+                        <button id="auth-logout" class="btn btn-outline">Se déconnecter</button>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Mon espace</h1>
+                <p>Gérez vos réservations et vos événements</p>
+            </div>
+
+            <div class="dashboard-nav">
+                <button class="tab-btn active" data-tab="bookings">Mes réservations</button>
+                <button class="tab-btn" data-tab="events">Mes événements</button>
+                <button class="tab-btn" data-tab="reviews">Laisser un avis</button>
+                <button class="tab-btn" data-tab="proposals">Proposer une idée</button>
+                <button class="tab-btn" data-tab="profile">Mon profil</button>
+                <button id="admin-tab" class="tab-btn" data-tab="admin" style="display: none;">Administration</button>
+            </div>
+
+            <!-- Mes réservations -->
+            <div id="bookings-tab" class="tab-content active">
+                <div class="tab-header">
+                    <h2>Mes réservations</h2>
+                    <a href="reserve.html" class="btn btn-primary">
+                        <i data-lucide="plus"></i>
+                        Nouvelle réservation
+                    </a>
+                </div>
+                <div id="user-bookings" class="bookings-list">
+                    <!-- Bookings will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Mes événements -->
+            <div id="events-tab" class="tab-content">
+                <div class="tab-header">
+                    <h2>Mes événements</h2>
+                    <a href="events.html" class="btn btn-primary">
+                        <i data-lucide="plus"></i>
+                        Voir tous les événements
+                    </a>
+                </div>
+                <div id="user-events" class="events-list">
+                    <!-- Events will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Laisser un avis -->
+            <div id="reviews-tab" class="tab-content">
+                <div class="tab-header">
+                    <h2>Laisser un avis</h2>
+                </div>
+                <form id="review-form" class="review-form">
+                    <div class="form-group">
+                        <label>Note</label>
+                        <div class="rating-input">
+                            <button type="button" class="star" data-rating="1">⭐</button>
+                            <button type="button" class="star" data-rating="2">⭐</button>
+                            <button type="button" class="star" data-rating="3">⭐</button>
+                            <button type="button" class="star" data-rating="4">⭐</button>
+                            <button type="button" class="star" data-rating="5">⭐</button>
+                        </div>
+                        <input type="hidden" id="review-rating" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-text">Votre avis</label>
+                        <textarea id="review-text" rows="4" required placeholder="Partagez votre expérience avec La Bonne Routine..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Envoyer l'avis</button>
+                </form>
+            </div>
+
+            <!-- Proposer une idée -->
+            <div id="proposals-tab" class="tab-content">
+                <div class="tab-header">
+                    <h2>Proposer une idée d'événement</h2>
+                </div>
+                <form id="proposal-form" class="proposal-form">
+                    <div class="form-group">
+                        <label for="proposal-title">Titre de l'événement</label>
+                        <input type="text" id="proposal-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="proposal-description">Description</label>
+                        <textarea id="proposal-description" rows="4" required placeholder="Décrivez votre idée d'événement..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="proposal-tags">Tags (séparés par des virgules)</label>
+                        <input type="text" id="proposal-tags" placeholder="fitness, groupe, débutant...">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Proposer</button>
+                </form>
+
+                <div class="proposals-list">
+                    <h3>Mes propositions</h3>
+                    <div id="user-proposals">
+                        <!-- Proposals will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mon profil -->
+            <div id="profile-tab" class="tab-content">
+                <div class="tab-header">
+                    <h2>Mon profil</h2>
+                </div>
+                <form id="profile-form" class="profile-form">
+                    <div class="form-group">
+                        <label for="profile-name">Nom complet</label>
+                        <input type="text" id="profile-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-email">Email</label>
+                        <input type="email" id="profile-email" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-phone">Téléphone</label>
+                        <input type="tel" id="profile-phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-instagram">Instagram (optionnel)</label>
+                        <input type="text" id="profile-instagram" placeholder="@votre_pseudo">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                </form>
+            </div>
+
+            <!-- Administration (admin only) -->
+            <div id="admin-tab-content" class="tab-content">
+                <div class="tab-header">
+                    <h2>Administration</h2>
+                    <a href="admin.html" class="btn btn-primary">
+                        Panneau d'administration complet
+                    </a>
+                </div>
+                <p>Accès rapide aux fonctions d'administration. Utilisez le panneau complet pour plus d'options.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de confirmation d'annulation -->
+    <div id="cancel-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmer l'annulation</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir annuler cette réservation ?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('cancel-modal')">Annuler</button>
+                <button id="confirm-cancel" class="btn btn-primary">Confirmer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/firebase-init.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/ui.js"></script>
+    <script type="module" src="js/booking.js"></script>
+    <script type="module" src="js/events.js"></script>
+    <script type="module" src="js/reviews.js"></script>
+    <script type="module">
+        import { initAuth, getCurrentUser, updateUserProfile, logout } from './js/auth.js';
+        import { showToast, openModal, closeModal } from './js/ui.js';
+        import { getUserBookings, cancelBooking } from './js/booking.js';
+        import { getUserEvents, getUserProposals, submitProposal } from './js/events.js';
+        import { submitReview } from './js/reviews.js';
+        
+        let currentUser = null;
+        let currentBookingToCancel = null;
+
+        dayjs.extend(dayjs_plugin_relativeTime);
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            lucide.createIcons();
+            
+            currentUser = await initAuth();
+            if (!currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Show admin tab if user is admin
+            if (currentUser.role === 'admin') {
+                document.getElementById('admin-tab').style.display = 'block';
+            }
+
+            // Update UI with user info
+            document.getElementById('user-name').textContent = currentUser.displayName || currentUser.email;
+            
+            // Load profile data
+            loadProfile();
+            
+            // Load initial tab content
+            loadBookings();
+
+            // Tab switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabName = btn.dataset.tab;
+                    switchTab(tabName);
+                });
+            });
+
+            // Profile form
+            document.getElementById('profile-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = {
+                    displayName: document.getElementById('profile-name').value,
+                    phone: document.getElementById('profile-phone').value,
+                    instagram: document.getElementById('profile-instagram').value
+                };
+                
+                try {
+                    await updateUserProfile(formData);
+                    showToast('Profil mis à jour !', 'success');
+                } catch (error) {
+                    showToast(error.message, 'error');
+                }
+            });
+
+            // Review form
+            setupReviewForm();
+            
+            // Proposal form
+            document.getElementById('proposal-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const title = document.getElementById('proposal-title').value;
+                const description = document.getElementById('proposal-description').value;
+                const tags = document.getElementById('proposal-tags').value.split(',').map(t => t.trim()).filter(t => t);
+                
+                try {
+                    await submitProposal({ title, description, tags });
+                    showToast('Proposition soumise !', 'success');
+                    document.getElementById('proposal-form').reset();
+                    loadProposals();
+                } catch (error) {
+                    showToast(error.message, 'error');
+                }
+            });
+
+            // Logout
+            document.getElementById('auth-logout').addEventListener('click', async () => {
+                await logout();
+                window.location.href = 'index.html';
+            });
+
+            // Cancel booking modal
+            document.getElementById('confirm-cancel').addEventListener('click', async () => {
+                if (currentBookingToCancel) {
+                    try {
+                        await cancelBooking(currentBookingToCancel);
+                        showToast('Réservation annulée', 'success');
+                        closeModal('cancel-modal');
+                        loadBookings();
+                    } catch (error) {
+                        showToast(error.message, 'error');
+                    }
+                }
+            });
+
+            // Close modal handlers
+            window.closeModal = closeModal;
+        });
+
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            const targetTab = tabName === 'admin' ? 'admin-tab-content' : `${tabName}-tab`;
+            document.getElementById(targetTab).classList.add('active');
+
+            // Load tab-specific content
+            switch(tabName) {
+                case 'bookings':
+                    loadBookings();
+                    break;
+                case 'events':
+                    loadUserEvents();
+                    break;
+                case 'proposals':
+                    loadProposals();
+                    break;
+            }
+        }
+
+        function loadProfile() {
+            document.getElementById('profile-name').value = currentUser.displayName || '';
+            document.getElementById('profile-email').value = currentUser.email;
+            document.getElementById('profile-phone').value = currentUser.phone || '';
+            document.getElementById('profile-instagram').value = currentUser.instagram || '';
+        }
+
+        async function loadBookings() {
+            try {
+                const bookings = await getUserBookings();
+                const container = document.getElementById('user-bookings');
+                
+                if (bookings.length === 0) {
+                    container.innerHTML = '<p class="empty-state">Aucune réservation trouvée.</p>';
+                    return;
+                }
+
+                container.innerHTML = bookings.map(booking => `
+                    <div class="booking-card ${booking.status}">
+                        <div class="booking-info">
+                            <div class="booking-date">
+                                ${dayjs(booking.slot.startAt.toDate()).format('dddd DD MMMM YYYY')}
+                            </div>
+                            <div class="booking-time">
+                                ${dayjs(booking.slot.startAt.toDate()).format('HH:mm')} - 
+                                ${dayjs(booking.slot.endAt.toDate()).format('HH:mm')}
+                            </div>
+                            <div class="booking-location">
+                                <i data-lucide="map-pin"></i>
+                                ${booking.slot.location}
+                            </div>
+                            ${booking.slot.notes ? `<div class="booking-notes">${booking.slot.notes}</div>` : ''}
+                        </div>
+                        <div class="booking-actions">
+                            <span class="booking-status status-${booking.status}">
+                                ${booking.status === 'active' ? 'Confirmée' : 'Annulée'}
+                            </span>
+                            ${booking.status === 'active' && dayjs(booking.slot.startAt.toDate()).isAfter(dayjs()) ? 
+                                `<button class="btn btn-outline btn-sm" onclick="cancelBookingConfirm('${booking.id}')">
+                                    Annuler
+                                </button>` : ''
+                            }
+                        </div>
+                    </div>
+                `).join('');
+                
+                lucide.createIcons();
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+                showToast('Erreur lors du chargement des réservations', 'error');
+            }
+        }
+
+        async function loadUserEvents() {
+            try {
+                const events = await getUserEvents();
+                const container = document.getElementById('user-events');
+                
+                if (events.length === 0) {
+                    container.innerHTML = '<p class="empty-state">Aucun événement trouvé.</p>';
+                    return;
+                }
+
+                container.innerHTML = events.map(event => `
+                    <div class="event-card">
+                        <div class="event-info">
+                            <h3>${event.title}</h3>
+                            <div class="event-date">
+                                ${dayjs(event.startAt.toDate()).format('dddd DD MMMM YYYY à HH:mm')}
+                            </div>
+                            <div class="event-location">
+                                <i data-lucide="map-pin"></i>
+                                ${event.location}
+                            </div>
+                            <div class="event-description">${event.description}</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                lucide.createIcons();
+            } catch (error) {
+                console.error('Error loading user events:', error);
+                showToast('Erreur lors du chargement des événements', 'error');
+            }
+        }
+
+        async function loadProposals() {
+            try {
+                const proposals = await getUserProposals();
+                const container = document.getElementById('user-proposals');
+                
+                if (proposals.length === 0) {
+                    container.innerHTML = '<p class="empty-state">Aucune proposition trouvée.</p>';
+                    return;
+                }
+
+                container.innerHTML = proposals.map(proposal => `
+                    <div class="proposal-card">
+                        <div class="proposal-header">
+                            <h4>${proposal.title}</h4>
+                            <span class="proposal-status status-${proposal.status}">
+                                ${proposal.status === 'pending' ? 'En attente' : 
+                                  proposal.status === 'approved' ? 'Approuvée' : 'Rejetée'}
+                            </span>
+                        </div>
+                        <div class="proposal-description">${proposal.description}</div>
+                        ${proposal.tags?.length ? 
+                            `<div class="proposal-tags">
+                                ${proposal.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                            </div>` : ''
+                        }
+                        ${proposal.adminNote ? 
+                            `<div class="proposal-note">
+                                <strong>Note admin:</strong> ${proposal.adminNote}
+                            </div>` : ''
+                        }
+                        <div class="proposal-date">
+                            Proposé ${dayjs(proposal.createdAt.toDate()).fromNow()}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading proposals:', error);
+                showToast('Erreur lors du chargement des propositions', 'error');
+            }
+        }
+
+        function setupReviewForm() {
+            const stars = document.querySelectorAll('.star');
+            const ratingInput = document.getElementById('review-rating');
+
+            stars.forEach((star, index) => {
+                star.addEventListener('click', () => {
+                    const rating = index + 1;
+                    ratingInput.value = rating;
+                    updateStars(rating);
+                });
+            });
+
+            document.getElementById('review-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const rating = parseInt(document.getElementById('review-rating').value);
+                const text = document.getElementById('review-text').value;
+
+                if (!rating) {
+                    showToast('Veuillez sélectionner une note', 'error');
+                    return;
+                }
+
+                try {
+                    await submitReview({ rating, text });
+                    showToast('Avis soumis ! Il sera publié après validation.', 'success');
+                    document.getElementById('review-form').reset();
+                    ratingInput.value = '';
+                    updateStars(0);
+                } catch (error) {
+                    showToast(error.message, 'error');
+                }
+            });
+        }
+
+        function updateStars(rating) {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                star.classList.toggle('active', index < rating);
+            });
+        }
+
+        window.cancelBookingConfirm = (bookingId) => {
+            currentBookingToCancel = bookingId;
+            openModal('cancel-modal');
+        };
+    </script>
+</body>
+</html>

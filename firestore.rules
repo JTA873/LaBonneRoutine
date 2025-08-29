@@ -1,0 +1,110 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Fonction utilitaire pour vérifier si l'utilisateur est admin
+    function isAdmin() {
+      return request.auth != null && 
+             exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Fonction utilitaire pour vérifier si l'utilisateur est connecté
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Fonction utilitaire pour vérifier si l'utilisateur est le propriétaire
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+    
+    // USERS - Un utilisateur peut créer/modifier son propre profil
+    match /users/{userId} {
+      allow read: if true; // Lecture publique des profils (pour affichage)
+      allow create: if isAuthenticated() && request.auth.uid == userId &&
+                    // Le rôle doit être 'user' par défaut pour les nouveaux comptes
+                    request.resource.data.role == 'user';
+      allow update: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+    
+    // SLOTS - Seuls les admins peuvent gérer les créneaux
+    match /slots/{slotId} {
+      allow read: if true; // Lecture publique des créneaux
+      allow write: if isAdmin();
+    }
+    
+    // BOOKINGS - Les utilisateurs peuvent réserver, admins peuvent tout faire
+    match /bookings/{bookingId} {
+      allow read: if isAuthenticated() && 
+                  (isOwner(resource.data.userId) || isAdmin());
+      allow create: if isAuthenticated() && 
+                    request.auth.uid == request.resource.data.userId &&
+                    // Vérifier que le slot existe et n'est pas complet
+                    exists(/databases/$(database)/documents/slots/$(request.resource.data.slotId)) &&
+                    get(/databases/$(database)/documents/slots/$(request.resource.data.slotId)).data.status == 'open';
+      allow update: if isOwner(resource.data.userId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+    
+    // EVENTS - Lecture publique des événements publiés, écriture admin seulement
+    match /events/{eventId} {
+      allow read: if resource.data.status == 'published' || isAdmin();
+      allow write: if isAdmin();
+      
+      // Comments sur les événements
+      match /comments/{commentId} {
+        allow read: if resource.data.status == 'approved' || 
+                    isOwner(resource.data.userId) || 
+                    isAdmin();
+        allow create: if isAuthenticated() && 
+                      request.auth.uid == request.resource.data.userId &&
+                      // Forcer le status à 'pending'
+                      request.resource.data.status == 'pending';
+        allow update: if isAdmin(); // Seuls les admins peuvent approuver/rejeter
+        allow delete: if isOwner(resource.data.userId) || isAdmin();
+      }
+    }
+    
+    // EVENT PROPOSALS - Les utilisateurs peuvent proposer, admins modèrent
+    match /eventProposals/{proposalId} {
+      allow read: if isOwner(resource.data.userId) || isAdmin();
+      allow create: if isAuthenticated() && 
+                    request.auth.uid == request.resource.data.userId &&
+                    // Forcer le status à 'pending'
+                    request.resource.data.status == 'pending';
+      allow update: if isAdmin(); // Seuls les admins peuvent changer le status
+      allow delete: if isOwner(resource.data.userId) || isAdmin();
+    }
+    
+    // REVIEWS - Lecture publique des avis approuvés, création par utilisateurs
+    match /reviews/{reviewId} {
+      allow read: if resource.data.status == 'approved' || 
+                  isOwner(resource.data.userId) || 
+                  isAdmin();
+      allow create: if isAuthenticated() && 
+                    request.auth.uid == request.resource.data.userId &&
+                    // Forcer le status à 'pending'
+                    request.resource.data.status == 'pending' &&
+                    // Vérifier que la note est valide
+                    request.resource.data.rating >= 1 && 
+                    request.resource.data.rating <= 5;
+      allow update: if isAdmin(); // Seuls les admins peuvent approuver/modifier
+      allow delete: if isAdmin();
+    }
+    
+    // CMS - Lecture publique, écriture admin seulement
+    match /cms/{docId} {
+      allow read: if true; // Lecture publique pour affichage
+      allow write: if isAdmin();
+    }
+    
+    // ATTENDEES pour les événements (sous-collection)
+    match /events/{eventId}/attendees/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+  }
+}

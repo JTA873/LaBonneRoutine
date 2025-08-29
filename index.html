@@ -3,1258 +3,478 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Bonne Routine - Réservation Coaching</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>La Bonne Routine - Coaching & Développement Personnel</title>
+    <meta name="description" content="Découvrez nos services de coaching personnalisé et développement personnel. Séances individuelles, ateliers SAP et événements pour transformer votre quotidien.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     
-    <style>
-    /* ===== VARIABLES CSS ===== */
-    :root {
-        --primary-color: #3b82f6;
-        --secondary-color: #1e40af;
-        --accent-color: #10b981;
-        --success-color: #22c55e;
-        --warning-color: #f59e0b;
-        --error-color: #ef4444;
-        --text-primary: #1f2937;
-        --text-secondary: #6b7280;
-        --text-muted: #9ca3af;
-        --surface-color: #ffffff;
-        --surface-hover: #f8fafc;
-        --border-color: #e5e7eb;
-        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-        --gradient-accent: linear-gradient(135deg, var(--accent-color) 0%, #059669 100%);
-    }
-
-    /* ===== RESET & BASE ===== */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        line-height: 1.6;
-        color: var(--text-primary);
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        min-height: 100vh;
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-
-    /* ===== HEADER ===== */
-    .header {
-        background: var(--surface-color);
-        box-shadow: var(--shadow-md);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        backdrop-filter: blur(10px);
-    }
-
-    .header-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 16px 0;
-    }
-
-    .logo {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--primary-color);
-        text-decoration: none;
-    }
-
-    .nav {
-        display: flex;
-        align-items: center;
-        gap: 32px;
-    }
-
-    .nav a {
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.2s ease;
-    }
-
-    .nav a:hover {
-        color: var(--primary-color);
-    }
-
-    /* ===== BUTTONS ===== */
-    .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 12px 24px;
-        border: none;
-        border-radius: 12px;
-        font-weight: 600;
-        text-decoration: none;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        font-size: 0.9rem;
-    }
-
-    .btn-primary {
-        background: var(--gradient-primary);
-        color: white;
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .btn-outline {
-        background: transparent;
-        color: var(--primary-color);
-        border: 2px solid var(--primary-color);
-    }
-
-    .btn-outline:hover {
-        background: var(--primary-color);
-        color: white;
-    }
-
-    .btn-sm {
-        padding: 8px 16px;
-        font-size: 0.85rem;
-    }
-
-    .btn-lg {
-        padding: 16px 32px;
-        font-size: 1.1rem;
-    }
-
-    /* ===== PAGE HEADER ===== */
-    .page-header {
-        text-align: center;
-        padding: 60px 0;
-        background: var(--gradient-primary);
-        color: white;
-        margin-bottom: 40px;
-    }
-
-    .page-header h1 {
-        font-size: 3rem;
-        font-weight: 700;
-        margin-bottom: 16px;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .page-header p {
-        font-size: 1.2rem;
-        opacity: 0.9;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    /* ===== WARNING BANNER ===== */
-    .warning-banner {
-        background: rgba(251, 191, 36, 0.1);
-        border: 1px solid #fbbf24;
-        border-radius: 12px;
-        padding: 16px;
-        margin-bottom: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .warning-content {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        color: #92400e;
-    }
-
-    /* ===== CALENDRIER MODERNE ===== */
-    .calendar-widget {
-        background: var(--surface-color);
-        border-radius: 20px;
-        padding: 24px;
-        box-shadow: var(--shadow-md);
-        margin-bottom: 24px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .calendar-widget::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: var(--gradient-primary);
-    }
-
-    .calendar-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 24px;
-        padding-bottom: 16px;
-        border-bottom: 1px solid var(--border-color);
-    }
-
-    .calendar-title {
-        text-align: center;
-        flex: 1;
-    }
-
-    .calendar-month {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin: 0 0 4px 0;
-    }
-
-    .calendar-year {
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-        font-weight: 500;
-    }
-
-    .calendar-nav {
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        border: none;
-        background: var(--surface-hover);
-        color: var(--text-primary);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
-        cursor: pointer;
-    }
-
-    .calendar-nav:hover {
-        background: var(--primary-color);
-        color: white;
-        transform: scale(1.05);
-    }
-
-    .calendar-weekdays {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 8px;
-        margin-bottom: 16px;
-    }
-
-    .calendar-weekday {
-        text-align: center;
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: var(--text-secondary);
-        padding: 8px 4px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .calendar-grid {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 8px;
-        margin-bottom: 24px;
-    }
-
-    .calendar-day {
-        aspect-ratio: 1;
-        border-radius: 12px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        background: transparent;
-        color: var(--text-primary);
-        font-weight: 500;
-        min-height: 44px;
-    }
-
-    .calendar-day:hover:not(.disabled) {
-        background: var(--surface-hover);
-        transform: scale(1.05);
-    }
-
-    .calendar-day.today {
-        background: var(--primary-color);
-        color: white;
-        font-weight: 700;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    }
-
-    .calendar-day.selected {
-        background: var(--accent-color);
-        color: white;
-        transform: scale(1.1);
-        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-        z-index: 2;
-    }
-
-    .calendar-day.disabled {
-        color: var(--text-muted);
-        cursor: not-allowed;
-        opacity: 0.5;
-    }
-
-    .availability-indicator {
-        position: absolute;
-        bottom: 4px;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--success-color);
-    }
-
-    .calendar-day.limited .availability-indicator {
-        background: var(--warning-color);
-    }
-
-    .calendar-day.booked .availability-indicator {
-        background: var(--error-color);
-    }
-
-    .calendar-legend {
-        display: flex;
-        justify-content: center;
-        gap: 24px;
-        flex-wrap: wrap;
-        padding-top: 16px;
-        border-top: 1px solid var(--border-color);
-    }
-
-    .legend-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.85rem;
-        color: var(--text-secondary);
-    }
-
-    .legend-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-    }
-
-    .legend-dot.available { background: var(--success-color); }
-    .legend-dot.limited { background: var(--warning-color); }
-    .legend-dot.booked { background: var(--error-color); }
-
-    /* ===== TIME SLOTS ===== */
-    .time-slots-section {
-        background: var(--surface-color);
-        border-radius: 20px;
-        padding: 24px;
-        box-shadow: var(--shadow-md);
-        margin-top: 24px;
-        animation: slideUp 0.3s ease;
-    }
-
-    .slots-title {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin: 0 0 20px 0;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .slots-title::before {
-        content: '';
-        width: 4px;
-        height: 24px;
-        background: var(--gradient-primary);
-        border-radius: 2px;
-    }
-
-    .time-slots-grid {
-        display: grid;
-        gap: 16px;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    }
-
-    .time-slot {
-        background: var(--surface-color);
-        border: 2px solid var(--border-color);
-        border-radius: 16px;
-        padding: 20px;
-        transition: all 0.2s ease;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .time-slot::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 4px;
-        height: 100%;
-        background: var(--success-color);
-        transition: all 0.2s ease;
-    }
-
-    .time-slot:hover:not(.booked) {
-        border-color: var(--primary-color);
-        box-shadow: var(--shadow-lg);
-        transform: translateY(-2px);
-    }
-
-    .time-slot.selected {
-        border-color: var(--accent-color);
-        background: rgba(16, 185, 129, 0.05);
-        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
-        transform: translateY(-4px);
-    }
-
-    .slot-time {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--primary-color);
-        margin-bottom: 8px;
-    }
-
-    .slot-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: var(--text-primary);
-        margin-bottom: 8px;
-    }
-
-    .slot-details {
-        display: flex;
-        gap: 16px;
-        margin-bottom: 8px;
-    }
-
-    .slot-duration,
-    .slot-location {
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-        display: flex;
-        align-items: center;
-        gap: 4px;
-    }
-
-    .slot-price {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--accent-color);
-        margin-bottom: 16px;
-    }
-
-    /* ===== FOOTER ===== */
-    .footer {
-        background: var(--gradient-primary);
-        color: white;
-        padding: 40px 0 20px 0;
-        margin-top: 60px;
-    }
-
-    .footer-content {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 40px;
-        margin-bottom: 30px;
-    }
-
-    .footer-section h4 {
-        font-size: 1.2rem;
-        font-weight: 700;
-        margin-bottom: 16px;
-        color: #e0e7ff;
-    }
-
-    .footer-section p {
-        color: rgba(255, 255, 255, 0.8);
-        line-height: 1.6;
-        margin-bottom: 8px;
-    }
-
-    .qr-code-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 12px 20px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 12px;
-        color: white;
-        text-decoration: none;
-        transition: all 0.2s ease;
-        font-weight: 500;
-    }
-
-    .qr-code-link:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
-    }
-
-    .footer-bottom {
-        text-align: center;
-        padding-top: 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 0.9rem;
-    }
-
-    /* ===== MODAL ===== */
-    .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1000;
-        align-items: center;
-        justify-content: center;
-        backdrop-filter: blur(4px);
-    }
-
-    .modal.show {
-        display: flex;
-    }
-
-    .modal-content {
-        background: var(--surface-color);
-        border-radius: 20px;
-        padding: 24px;
-        max-width: 500px;
-        width: 90%;
-        max-height: 90vh;
-        overflow-y: auto;
-        box-shadow: var(--shadow-lg);
-    }
-
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        padding-bottom: 16px;
-        border-bottom: 1px solid var(--border-color);
-    }
-
-    .modal-close {
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: var(--text-secondary);
-    }
-
-    .qr-image {
-        width: 250px;
-        height: 250px;
-        border-radius: 12px;
-        border: 4px solid var(--border-color);
-        background: white;
-        padding: 8px;
-        margin: 20px auto;
-        display: block;
-    }
-
-    /* ===== TOAST ===== */
-    .toast-container {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1100;
-    }
-
-    .toast {
-        background: var(--surface-color);
-        border-radius: 12px;
-        padding: 16px 20px;
-        margin-bottom: 12px;
-        box-shadow: var(--shadow-lg);
-        border-left: 4px solid var(--success-color);
-        animation: slideInRight 0.3s ease;
-    }
-
-    .toast.error {
-        border-left-color: var(--error-color);
-    }
-
-    .toast.warning {
-        border-left-color: var(--warning-color);
-    }
-
-    /* ===== ANIMATIONS ===== */
-    @keyframes slideUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
+    <!-- Open Graph -->
+    <meta property="og:title" content="La Bonne Routine - Coaching & Développement Personnel">
+    <meta property="og:description" content="Transformez votre quotidien avec nos services de coaching personnalisé">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://labonneroutine.web.app">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "La Bonne Routine",
+        "description": "Services de coaching et développement personnel",
+        "url": "https://labonneroutine.web.app",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "contact@labonneroutine.fr",
+            "contactType": "Customer Service"
         }
     }
-
-    @keyframes slideInRight {
-        from {
-            opacity: 0;
-            transform: translateX(100%);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-
-    .spinner {
-        width: 16px;
-        height: 16px;
-        border: 2px solid transparent;
-        border-top: 2px solid currentColor;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        display: inline-block;
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-        .header-content {
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .nav {
-            gap: 16px;
-        }
-
-        .page-header h1 {
-            font-size: 2rem;
-        }
-
-        .page-header {
-            padding: 40px 0;
-        }
-
-        .calendar-widget {
-            padding: 16px;
-            margin: 0 -8px 16px -8px;
-        }
-
-        .calendar-day {
-            min-height: 40px;
-            font-size: 0.9rem;
-        }
-
-        .time-slots-grid {
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-
-        .footer-content {
-            grid-template-columns: 1fr;
-            gap: 25px;
-            text-align: center;
-        }
-
-        .qr-image {
-            width: 200px;
-            height: 200px;
-        }
-    }
-    </style>
+    </script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <a href="#" class="logo">
-                    🏃‍♂️ La Bonne Routine
-                </a>
-                <nav class="nav">
-                    <a href="#accueil">Accueil</a>
-                    <a href="#reservation">Réservation</a>
-                    <a href="#contact">Contact</a>
-                    <div id="auth-nav">
-                        <button id="auth-login" class="btn btn-outline">Se connecter</button>
-                        <button id="auth-logout" class="btn btn-outline" style="display: none;">Déconnexion</button>
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Navigation principale">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="assets/logo.svg" alt="La Bonne Routine" class="logo">
+                <span class="brand-text">La Bonne Routine</span>
+            </div>
+            
+            <button class="nav-toggle" aria-label="Menu mobile" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="nav-menu">
+                <a href="#accueil" class="nav-link active">Accueil</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#tarifs" class="nav-link">Tarifs</a>
+                <a href="#avis" class="nav-link">Témoignages</a>
+                <a href="events.html" class="nav-link">Événements</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <div class="nav-auth">
+                    <a href="signup.html" class="btn btn-primary" id="signupBtn">Inscription</a>
+                    <a href="login.html" class="btn btn-outline" id="loginBtn">Connexion</a>
+                    <a href="dashboard.html" class="btn btn-primary hidden" id="dashboardBtn">Mon compte</a>
+                    <button class="btn btn-outline hidden" id="logoutBtn">Déconnexion</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="accueil" class="hero" role="banner">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Transformez votre quotidien avec 
+                        <span class="text-gradient">La Bonne Routine</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Découvrez le pouvoir du coaching personnalisé et du développement personnel. 
+                        Créez des habitudes durables, atteignez vos objectifs et épanouissez-vous pleinement.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="reserve.html" class="btn btn-primary btn-large">
+                            Réserver une séance
+                        </a>
+                        <a href="#services" class="btn btn-outline btn-large">
+                            Découvrir nos services
+                        </a>
                     </div>
-                </nav>
+                    
+                    <!-- Stats -->
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number" data-count="150">0</span>
+                            <span class="stat-label">Clients accompagnés</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-count="95">0</span>
+                            <span class="stat-label">% de satisfaction</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-count="500">0</span>
+                            <span class="stat-label">Séances réalisées</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Femme méditative dans un environnement serein" 
+                             loading="lazy">
+                    </div>
+                    <div class="floating-card">
+                        <div class="card-icon">🌱</div>
+                        <div class="card-content">
+                            <h3>Croissance personnelle</h3>
+                            <p>Développez votre potentiel</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </header>
+        </section>
 
-    <!-- Page Header -->
-    <section id="accueil" class="page-header">
-        <div class="container">
-            <h1>La Bonne Routine</h1>
-            <p>Votre coach sportif personnel pour une remise en forme adaptée à vos besoins. Réservez votre séance et commencez votre transformation !</p>
-        </div>
-    </section>
+        <!-- Services Section -->
+        <section id="services" class="services section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Nos Services</h2>
+                    <p class="section-subtitle">
+                        Des accompagnements personnalisés pour répondre à vos besoins uniques
+                    </p>
+                </div>
+                
+                <div class="services-grid">
+                    <!-- Coaching Individuel -->
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-icon">
+                            <span class="icon">🎯</span>
+                        </div>
+                        <h3 class="service-title">Coaching Individuel</h3>
+                        <p class="service-description">
+                            Séances personnalisées pour définir et atteindre vos objectifs personnels et professionnels.
+                        </p>
+                        <ul class="service-features">
+                            <li>Bilan de personnalité approfondi</li>
+                            <li>Plan d'action personnalisé</li>
+                            <li>Suivi régulier et ajustements</li>
+                            <li>Outils concrets et pratiques</li>
+                        </ul>
+                        <div class="service-duration">
+                            <span class="duration-badge">1h30 / séance</span>
+                        </div>
+                    </div>
 
-    <!-- Main Content -->
-    <main class="container">
-        <!-- Auth Warning -->
-        <div id="auth-warning" class="warning-banner" style="display: none;">
-            <div class="warning-content">
-                <i data-lucide="info"></i>
-                <span>Connectez-vous pour pouvoir réserver une séance</span>
-                <button id="auth-login-2" class="btn btn-primary btn-sm">Se connecter</button>
+                    <!-- Développement Personnel -->
+                    <div class="service-card featured" data-aos="fade-up" data-aos-delay="200">
+                        <div class="featured-badge">Populaire</div>
+                        <div class="service-icon">
+                            <span class="icon">🌟</span>
+                        </div>
+                        <h3 class="service-title">Développement Personnel</h3>
+                        <p class="service-description">
+                            Explorez vos ressources intérieures et développez une meilleure connaissance de soi.
+                        </p>
+                        <ul class="service-features">
+                            <li>Gestion du stress et des émotions</li>
+                            <li>Renforcement de la confiance en soi</li>
+                            <li>Amélioration des relations</li>
+                            <li>Équilibre vie pro/perso</li>
+                        </ul>
+                        <div class="service-duration">
+                            <span class="duration-badge">1h15 / séance</span>
+                        </div>
+                    </div>
+
+                    <!-- Ateliers SAP -->
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="service-icon">
+                            <span class="icon">👥</span>
+                        </div>
+                        <h3 class="service-title">Ateliers SAP</h3>
+                        <p class="service-description">
+                            Sessions collectives de Soutien, Accompagnement et Partage pour créer du lien et progresser ensemble.
+                        </p>
+                        <ul class="service-features">
+                            <li>Dynamique de groupe bienveillante</li>
+                            <li>Partage d'expériences</li>
+                            <li>Exercices pratiques collectifs</li>
+                            <li>Soutien mutuel et motivation</li>
+                        </ul>
+                        <div class="service-duration">
+                            <span class="duration-badge">2h / atelier</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="services-cta">
+                    <a href="reserve.html" class="btn btn-primary btn-large">
+                        Choisir mon accompagnement
+                    </a>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Calendrier de Réservation -->
-        <section id="reservation">
-            <div id="modern-calendar-container">
-                <!-- Le calendrier sera généré ici -->
+        <!-- Pricing Section -->
+        <section id="tarifs" class="pricing section-padding bg-light">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Nos Tarifs</h2>
+                    <p class="section-subtitle">
+                        Des tarifs transparents et accessibles pour votre développement
+                    </p>
+                </div>
+
+                <div class="pricing-grid">
+                    <!-- Séance Découverte -->
+                    <div class="pricing-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="pricing-header">
+                            <h3 class="pricing-title">Séance Découverte</h3>
+                            <div class="pricing-price">
+                                <span class="price-amount">Gratuit</span>
+                            </div>
+                            <p class="pricing-description">
+                                Première rencontre pour faire connaissance et définir vos objectifs
+                            </p>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>✅ Entretien de 30 minutes</li>
+                            <li>✅ Évaluation de vos besoins</li>
+                            <li>✅ Présentation de la méthode</li>
+                            <li>✅ Plan d'accompagnement personnalisé</li>
+                        </ul>
+                        <a href="reserve.html?type=decouverte" class="btn btn-outline btn-full">
+                            Réserver gratuitement
+                        </a>
+                    </div>
+
+                    <!-- Coaching Classique -->
+                    <div class="pricing-card featured" data-aos="fade-up" data-aos-delay="200">
+                        <div class="featured-badge">Le plus choisi</div>
+                        <div class="pricing-header">
+                            <h3 class="pricing-title">Coaching Classique</h3>
+                            <div class="pricing-price">
+                                <span class="price-amount">60€</span>
+                                <span class="price-period">/ séance</span>
+                            </div>
+                            <p class="pricing-description">
+                                Accompagnement individuel personnalisé
+                            </p>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>✅ Séance de 1h30</li>
+                            <li>✅ Suivi personnalisé</li>
+                            <li>✅ Outils et exercices pratiques</li>
+                            <li>✅ Support entre les séances</li>
+                            <li>✅ Bilan de progression</li>
+                        </ul>
+                        <a href="reserve.html?type=classique" class="btn btn-primary btn-full">
+                            Réserver maintenant
+                        </a>
+                    </div>
+
+                    <!-- Ateliers SAP -->
+                    <div class="pricing-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="pricing-header">
+                            <h3 class="pricing-title">Ateliers SAP</h3>
+                            <div class="pricing-price">
+                                <span class="price-amount">25€</span>
+                                <span class="price-period">/ atelier</span>
+                            </div>
+                            <p class="pricing-description">
+                                Sessions collectives de développement
+                            </p>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>✅ Atelier de 2h</li>
+                            <li>✅ Groupe de 6-8 personnes max</li>
+                            <li>✅ Thématiques variées</li>
+                            <li>✅ Partage d'expériences</li>
+                            <li>✅ Ressources à emporter</li>
+                        </ul>
+                        <a href="events.html" class="btn btn-outline btn-full">
+                            Voir les ateliers
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pricing Notes -->
+                <div class="pricing-notes">
+                    <div class="note-card">
+                        <h4>💳 Modalités de paiement</h4>
+                        <p>Paiement en ligne sécurisé, par virement ou espèces. Possibilité de paiement en plusieurs fois.</p>
+                    </div>
+                    <div class="note-card">
+                        <h4>📅 Annulation</h4>
+                        <p>Annulation gratuite jusqu'à 24h avant le rendez-vous. Au-delà, la séance sera due.</p>
+                    </div>
+                    <div class="note-card">
+                        <h4>🎁 Offres spéciales</h4>
+                        <p>Forfaits avantageux pour plusieurs séances. Tarifs préférentiels pour étudiants et demandeurs d'emploi.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="avis" class="testimonials section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Témoignages</h2>
+                    <p class="section-subtitle">
+                        Découvrez les expériences transformatrices de nos clients
+                    </p>
+                </div>
+
+                <div class="testimonials-carousel" id="testimonials-carousel">
+                    <div class="testimonials-container" id="testimonials-container">
+                        <!-- Les témoignages seront chargés dynamiquement -->
+                    </div>
+                    
+                    <div class="carousel-controls">
+                        <button class="carousel-btn carousel-prev" aria-label="Témoignage précédent">
+                            ←
+                        </button>
+                        <div class="carousel-dots" id="carousel-dots">
+                            <!-- Les points seront générés dynamiquement -->
+                        </div>
+                        <button class="carousel-btn carousel-next" aria-label="Témoignage suivant">
+                            →
+                        </button>
+                    </div>
+                </div>
+
+                <div class="testimonials-cta">
+                    <p>Vous aussi, transformez votre quotidien</p>
+                    <a href="reserve.html" class="btn btn-primary">
+                        Commencer mon parcours
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta section-padding bg-gradient">
+            <div class="container">
+                <div class="cta-content">
+                    <h2 class="cta-title">Prêt(e) à transformer votre vie ?</h2>
+                    <p class="cta-subtitle">
+                        Rejoignez les centaines de personnes qui ont déjà franchi le pas vers un quotidien plus épanouissant.
+                    </p>
+                    <div class="cta-actions">
+                        <a href="reserve.html" class="btn btn-white btn-large">
+                            Réserver ma séance découverte
+                        </a>
+                        <a href="contact.html" class="btn btn-outline-white btn-large">
+                            Poser une question
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>La Bonne Routine</h4>
-                    <p>Votre coach sportif personnel pour une remise en forme adaptée à vos besoins.</p>
+                    <div class="footer-brand">
+                        <img src="assets/logo.svg" alt="La Bonne Routine" class="footer-logo">
+                        <h3>La Bonne Routine</h3>
+                        <p>Votre partenaire pour un quotidien plus épanouissant et des habitudes durables.</p>
+                    </div>
                 </div>
-                
-                <div class="footer-section" id="contact">
-                    <h4>Contact</h4>
-                    <p>📧 contact@labonneroutine.fr</p>
-                    <p>📱 +33 6 XX XX XX XX</p>
-                </div>
-                
+
                 <div class="footer-section">
-                    <h4>Accès rapide</h4>
-                    <a href="#" id="qr-link" class="qr-code-link">
-                        <i data-lucide="qr-code"></i>
-                        QR Code du site
-                    </a>
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="#accueil">Accueil</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#tarifs">Tarifs</a></li>
+                        <li><a href="events.html">Événements</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="reserve.html?type=classique">Coaching Individuel</a></li>
+                        <li><a href="reserve.html?type=developpement">Développement Personnel</a></li>
+                        <li><a href="events.html">Ateliers SAP</a></li>
+                        <li><a href="reserve.html?type=decouverte">Séance Découverte</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <a href="mailto:contact@labonneroutine.fr">contact@labonneroutine.fr</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📱</span>
+                            <a href="tel:+33123456789">01 23 45 67 89</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <span>Paris & Île-de-France</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
-                <p>&copy; 2025 La Bonne Routine. Tous droits réservés.</p>
+                <div class="footer-legal">
+                    <span>&copy; 2024 La Bonne Routine. Tous droits réservés.</span>
+                    <div class="legal-links">
+                        <a href="/mentions-legales">Mentions légales</a>
+                        <a href="/politique-confidentialite">Politique de confidentialité</a>
+                        <a href="/cgu">CGU</a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Modal QR Code -->
-    <div id="qr-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>QR Code - La Bonne Routine</h3>
-                <button class="modal-close" onclick="closeQrModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div id="qr-code-container" style="text-align: center;">
-                    <!-- QR code sera généré ici -->
-                </div>
-                <p style="text-align: center; margin-top: 16px; color: var(--text-secondary);">
-                    Scannez ce QR code pour accéder rapidement au site
-                </p>
-            </div>
-        </div>
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="loading-spinner hidden">
+        <div class="spinner"></div>
     </div>
 
-    <!-- Toast Container -->
-    <div id="toast-container" class="toast-container"></div>
-
-    <!-- Scripts Firebase -->
+    <!-- Scripts -->
+    <script type="module" src="js/firebase-init.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/ui.js"></script>
     <script type="module">
-        // Configuration Firebase
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, collection, addDoc, getDocs, query, where, orderBy } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-
-        // Config Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyBiV6iq54A8cWCKySAYEbglEYf0-Gj_NVU",
-            authDomain: "labonneroutine.firebaseapp.com", 
-            projectId: "labonneroutine",
-            storageBucket: "labonneroutine.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abcdef123456"
-        };
-
-        // Initialisation Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-
-        // Variables globales
-        let currentUser = null;
-        let calendar = null;
-
-        // Classes et fonctions
-        class ModernCalendar {
-            constructor(containerId) {
-                this.container = document.getElementById(containerId);
-                this.currentDate = new Date();
-                this.selectedDate = null;
-                this.monthNames = [
-                    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-                    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
-                ];
-                this.dayNames = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
-                this.init();
-            }
-
-            init() {
-                this.render();
-                this.attachEvents();
-            }
-
-            render() {
-                this.container.innerHTML = `
-                    <div class="calendar-widget">
-                        <div class="calendar-header">
-                            <button class="calendar-nav calendar-prev" type="button">
-                                <i data-lucide="chevron-left"></i>
-                            </button>
-                            <div class="calendar-title">
-                                <h3 class="calendar-month">${this.monthNames[this.currentDate.getMonth()]}</h3>
-                                <span class="calendar-year">${this.currentDate.getFullYear()}</span>
-                            </div>
-                            <button class="calendar-nav calendar-next" type="button">
-                                <i data-lucide="chevron-right"></i>
-                            </button>
-                        </div>
-                        
-                        <div class="calendar-weekdays">
-                            ${this.dayNames.map(day => `<div class="calendar-weekday">${day}</div>`).join('')}
-                        </div>
-                        
-                        <div class="calendar-grid">
-                            ${this.renderCalendarDays()}
-                        </div>
-                        
-                        <div class="calendar-legend">
-                            <div class="legend-item">
-                                <span class="legend-dot available"></span>
-                                <span>Disponible</span>
-                            </div>
-                            <div class="legend-item">
-                                <span class="legend-dot limited"></span>
-                                <span>Places limitées</span>
-                            </div>
-                            <div class="legend-item">
-                                <span class="legend-dot booked"></span>
-                                <span>Complet</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="time-slots-section" style="display: none;">
-                        <h4 class="slots-title">Créneaux disponibles</h4>
-                        <div class="time-slots-grid" id="timeSlots">
-                            <!-- Créneaux chargés dynamiquement -->
-                        </div>
-                    </div>
-                `;
-                
-                if (typeof lucide !== 'undefined') {
-                    lucide.createIcons();
-                }
-            }
-
-            renderCalendarDays() {
-                const year = this.currentDate.getFullYear();
-                const month = this.currentDate.getMonth();
-                const firstDay = new Date(year, month, 1);
-                const lastDay = new Date(year, month + 1, 0);
-                const daysInMonth = lastDay.getDate();
-                
-                let startDay = firstDay.getDay();
-                startDay = startDay === 0 ? 6 : startDay - 1;
-                
-                let html = '';
-                
-                // Jours du mois précédent
-                const prevMonth = new Date(year, month - 1, 0);
-                const daysInPrevMonth = prevMonth.getDate();
-                
-                for (let i = startDay - 1; i >= 0; i--) {
-                    const day = daysInPrevMonth - i;
-                    html += `<div class="calendar-day prev-month">${day}</div>`;
-                }
-                
-                // Jours du mois courant
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const date = new Date(year, month, day);
-                    const dateStr = this.formatDate(date);
-                    const isToday = this.isToday(date);
-                    const isPast = date < new Date();
-                    
-                    let classes = ['calendar-day'];
-                    let attributes = '';
-                    
-                    if (isToday) classes.push('today');
-                    if (isPast) classes.push('disabled');
-                    
-                    if (!isPast) {
-                        const availability = this.getRandomAvailability();
-                        classes.push(availability);
-                        attributes = `data-date="${dateStr}" tabindex="0"`;
-                    }
-                    
-                    html += `
-                        <div class="${classes.join(' ')}" ${attributes}>
-                            <span class="day-number">${day}</span>
-                            ${!isPast ? '<span class="availability-indicator"></span>' : ''}
-                        </div>
-                    `;
-                }
-                
-                return html;
-            }
-
-            attachEvents() {
-                this.container.querySelector('.calendar-prev').addEventListener('click', () => {
-                    this.currentDate.setMonth(this.currentDate.getMonth() - 1);
-                    this.render();
-                    this.attachEvents();
-                });
-                
-                this.container.querySelector('.calendar-next').addEventListener('click', () => {
-                    this.currentDate.setMonth(this.currentDate.getMonth() + 1);
-                    this.render();
-                    this.attachEvents();
-                });
-                
-                this.container.addEventListener('click', (e) => {
-                    const dayElement = e.target.closest('.calendar-day[data-date]');
-                    if (dayElement && !dayElement.classList.contains('disabled')) {
-                        this.selectDate(dayElement.dataset.date);
-                    }
-                });
-            }
-
-            selectDate(dateStr) {
-                this.container.querySelectorAll('.calendar-day.selected').forEach(el => {
-                    el.classList.remove('selected');
-                });
-                
-                const dayElement = this.container.querySelector(`[data-date="${dateStr}"]`);
-                if (dayElement) {
-                    dayElement.classList.add('selected');
-                    this.selectedDate = new Date(dateStr);
-                    this.loadTimeSlotsForDate(this.selectedDate);
-                }
-            }
-
-            async loadTimeSlotsForDate(date) {
-                const slotsContainer = this.container.querySelector('#timeSlots');
-                const slotsSection = this.container.querySelector('.time-slots-section');
-                
-                slotsContainer.innerHTML = '<div style="text-align: center; padding: 20px;">Chargement...</div>';
-                slotsSection.style.display = 'block';
-                
-                try {
-                    const slots = await this.fetchSlotsForDate(date);
-                    
-                    if (slots.length === 0) {
-                        slotsContainer.innerHTML = `
-                            <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
-                                <i data-lucide="calendar-x" style="width: 48px; height: 48px; margin-bottom: 16px;"></i>
-                                <p>Aucun créneau disponible pour cette date</p>
-                            </div>
-                        `;
-                    } else {
-                        slotsContainer.innerHTML = slots.map(slot => `
-                            <div class="time-slot ${slot.available ? 'available' : 'booked'}" 
-                                 data-slot-id="${slot.id}">
-                                <div class="slot-time">${slot.time}</div>
-                                <div class="slot-title">${slot.title}</div>
-                                <div class="slot-details">
-                                    <span class="slot-duration">⏱️ ${slot.duration}</span>
-                                    <span class="slot-location">📍 ${slot.location}</span>
-                                </div>
-                                <div class="slot-price">${slot.price}€</div>
-                                ${slot.available ? 
-                                    `<button class="btn btn-primary" onclick="bookSlot('${slot.id}')">
-                                        Réserver
-                                    </button>` :
-                                    '<span style="color: var(--error-color); font-weight: 600;">Complet</span>'
-                                }
-                            </div>
-                        `).join('');
-                    }
-                    
-                    if (typeof lucide !== 'undefined') {
-                        lucide.createIcons();
-                    }
-                    
-                } catch (error) {
-                    console.error('Erreur lors du chargement des créneaux:', error);
-                    slotsContainer.innerHTML = `
-                        <div style="text-align: center; padding: 40px; color: var(--error-color);">
-                            <p>Erreur lors du chargement des créneaux</p>
-                        </div>
-                    `;
-                }
-            }
-
-            async fetchSlotsForDate(date) {
-                // Simuler des créneaux pour la démo
-                const mockSlots = [
-                    {
-                        id: 'slot1',
-                        time: '09:00',
-                        title: 'Coaching Personnel',
-                        duration: '1h',
-                        location: 'Salle A',
-                        price: 50,
-                        available: true
-                    },
-                    {
-                        id: 'slot2',
-                        time: '11:00',
-                        title: 'Cours de Groupe',
-                        duration: '45min',
-                        location: 'Salle B',
-                        price: 25,
-                        available: true
-                    },
-                    {
-                        id: 'slot3',
-                        time: '14:00',
-                        title: 'Yoga Relaxation',
-                        duration: '1h30',
-                        location: 'Studio',
-                        price: 30,
-                        available: false
-                    },
-                    {
-                        id: 'slot4',
-                        time: '18:00',
-                        title: 'HIIT Training',
-                        duration: '45min',
-                        location: 'Salle A',
-                        price: 35,
-                        available: true
-                    }
-                ];
-
-                // Ajouter à Firestore la première fois
-                try {
-                    const slotsQuery = query(collection(db, 'slots'));
-                    const slotsSnapshot = await getDocs(slotsQuery);
-                    
-                    if (slotsSnapshot.empty) {
-                        // Créer des créneaux d'exemple
-                        for (const slot of mockSlots) {
-                            await addDoc(collection(db, 'slots'), {
-                                ...slot,
-                                date: date.toISOString().split('T')[0],
-                                createdAt: new Date()
-                            });
-                        }
-                    }
-                } catch (error) {
-                    console.log('Firestore non disponible, utilisation des données de démo');
-                }
-                
-                return mockSlots;
-            }
-
-            formatDate(date) {
-                return date.toISOString().split('T')[0];
-            }
-
-            isToday(date) {
-                const today = new Date();
-                return date.toDateString() === today.toDateString();
-            }
-
-            getRandomAvailability() {
-                const random = Math.random();
-                if (random < 0.7) return 'available';
-                if (random < 0.9) return 'limited';
-                return 'booked';
-            }
-        }
-
-        // Fonctions utilitaires
-        function showToast(message, type = 'success') {
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <i data-lucide="${type === 'error' ? 'alert-circle' : 'check-circle'}"></i>
-                    <span>${message}</span>
-                </div>
-            `;
-            
-            document.getElementById('toast-container').appendChild(toast);
-            
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-            
-            setTimeout(() => toast.remove(), 5000);
-        }
-
-        function updateAuthUI() {
-            const loginBtn = document.getElementById('auth-login');
-            const loginBtn2 = document.getElementById('auth-login-2');
-            const logoutBtn = document.getElementById('auth-logout');
-            const authWarning = document.getElementById('auth-warning');
-
-            if (currentUser) {
-                loginBtn.textContent = `👋 ${currentUser.email}`;
-                loginBtn.onclick = null;
-                logoutBtn.style.display = 'inline-flex';
-                authWarning.style.display = 'none';
-                if (loginBtn2) loginBtn2.style.display = 'none';
-            } else {
-                loginBtn.textContent = 'Se connecter';
-                loginBtn.onclick = promptLogin;
-                logoutBtn.style.display = 'none';
-                authWarning.style.display = 'flex';
-                if (loginBtn2) {
-                    loginBtn2.style.display = 'inline-flex';
-                    loginBtn2.onclick = promptLogin;
-                }
-            }
-        }
-
-        async function promptLogin() {
-            const email = prompt('Email :');
-            if (!email) return;
-            
-            const password = prompt('Mot de passe :');
-            if (!password) return;
-            
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                showToast('Connexion réussie !');
-            } catch (error) {
-                showToast('Erreur de connexion : ' + error.message, 'error');
-            }
-        }
-
-        async function logout() {
-            try {
-                await signOut(auth);
-                showToast('Déconnexion réussie');
-            } catch (error) {
-                showToast('Erreur lors de la déconnexion', 'error');
-            }
-        }
-
-        async function bookSlot(slotId) {
-            if (!currentUser) {
-                showToast('Connectez-vous pour réserver', 'warning');
-                return;
-            }
-
-            try {
-                await addDoc(collection(db, 'bookings'), {
-                    slotId: slotId,
-                    userId: currentUser.uid,
-                    userEmail: currentUser.email,
-                    bookedAt: new Date(),
-                    status: 'confirmed'
-                });
-                
-                showToast('Réservation confirmée !');
-                
-                // Recharger les créneaux
-                if (calendar && calendar.selectedDate) {
-                    calendar.loadTimeSlotsForDate(calendar.selectedDate);
-                }
-            } catch (error) {
-                showToast('Erreur lors de la réservation', 'error');
-            }
-        }
-
-        // QR Code
-        function generateQRCode(text, size = 200) {
-            return `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(text)}`;
-        }
-
-        function showQRModal() {
-            const currentUrl = window.location.href;
-            const qrCodeUrl = generateQRCode(currentUrl, 300);
-            
-            document.getElementById('qr-code-container').innerHTML = `
-                <img src="${qrCodeUrl}" alt="QR Code" class="qr-image">
-                <p style="margin-top: 16px; color: var(--text-secondary); font-size: 0.9rem;">${currentUrl}</p>
-            `;
-            
-            document.getElementById('qr-modal').classList.add('show');
-        }
-
-        function closeQrModal() {
-            document.getElementById('qr-modal').classList.remove('show');
-        }
-
-        // Initialisation
+        import { initializeTestimonials } from './js/testimonials.js';
+        import { animateCounters, initializeAOS, initializeUI } from './js/ui.js';
+        
+        // Initialisation quand le DOM est chargé
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialiser le calendrier
-            calendar = new ModernCalendar('modern-calendar-container');
+            // Initialisation de l'interface utilisateur complète
+            initializeUI();
             
-            // Initialiser les icônes Lucide
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
+            // Animation des compteurs
+            animateCounters();
             
-            // Events
-            document.getElementById('auth-logout').onclick = logout;
-            document.getElementById('qr-link').onclick = (e) => {
-                e.preventDefault();
-                showQRModal();
-            };
+            // Initialisation des témoignages
+            initializeTestimonials();
             
-            // Fermer modal en cliquant à l'extérieur
-            document.getElementById('qr-modal').onclick = (e) => {
-                if (e.target.id === 'qr-modal') {
-                    closeQrModal();
-                }
-            };
+            // Initialisation des animations
+            initializeAOS();
             
-            updateAuthUI();
+            // Smooth scroll pour les liens d'ancrage
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const headerHeight = document.querySelector('.navbar').offsetHeight;
+                        const targetPosition = target.offsetTop - headerHeight - 20;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         });
-
-        // Auth state observer
-        onAuthStateChanged(auth, (user) => {
-            currentUser = user;
-            updateAuthUI();
-        });
-
-        // Exposer les fonctions globalement
-        window.bookSlot = bookSlot;
-        window.closeQrModal = closeQrModal;
+        
+        // Analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('config', 'GA_MEASUREMENT_ID', {
+                page_title: 'Accueil - La Bonne Routine',
+                page_location: window.location.href
+            });
+        }
     </script>
 </body>
 </html>

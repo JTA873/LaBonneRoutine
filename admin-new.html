@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - La Bonne Routine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="assets/logo.svg" alt="La Bonne Routine" width="40" height="40">
+                    <a href="index.html">La Bonne Routine</a>
+                </div>
+                <nav class="nav">
+                    <a href="index.html">Accueil</a>
+                    <a href="dashboard.html">Mon espace</a>
+                    <div class="auth-nav">
+                        <span id="user-name" class="user-name"></span>
+                        <button id="auth-logout" class="btn btn-outline">Se déconnecter</button>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="admin-panel">
+        <div class="container">
+            <div class="admin-header">
+                <h1>Administration</h1>
+                <p>Panneau de gestion de La Bonne Routine</p>
+            </div>
+
+            <div class="admin-nav">
+                <button class="admin-nav-item active" data-view="dashboard">
+                    <i data-lucide="home"></i> Tableau de bord
+                </button>
+                <button class="admin-nav-item" data-view="bookings">
+                    <i data-lucide="calendar"></i> Réservations
+                </button>
+                <button class="admin-nav-item" data-view="events">
+                    <i data-lucide="users"></i> Événements
+                </button>
+                <button class="admin-nav-item" data-view="reviews">
+                    <i data-lucide="star"></i> Avis
+                </button>
+                <button class="admin-nav-item" data-view="cms">
+                    <i data-lucide="edit"></i> Contenu
+                </button>
+                <button class="admin-nav-item" data-view="users">
+                    <i data-lucide="user"></i> Utilisateurs
+                </button>
+            </div>
+
+            <!-- Tableau de bord -->
+            <div id="admin-dashboard" class="admin-content" style="display: block;">
+                <!-- Le contenu sera chargé dynamiquement -->
+            </div>
+
+            <!-- Réservations -->
+            <div id="admin-bookings" class="admin-content" style="display: none;">
+                <!-- Le contenu sera chargé dynamiquement -->
+            </div>
+
+            <!-- Événements -->
+            <div id="admin-events" class="admin-content" style="display: none;">
+                <!-- Le contenu sera chargé dynamiquement -->
+            </div>
+
+            <!-- Avis -->
+            <div id="admin-reviews" class="admin-content" style="display: none;">
+                <!-- Le contenu sera chargé dynamiquement -->
+            </div>
+
+            <!-- CMS -->
+            <div id="admin-cms" class="admin-content" style="display: none;">
+                <div id="cms-editor">
+                    <!-- Le contenu sera chargé dynamiquement -->
+                </div>
+            </div>
+
+            <!-- Utilisateurs -->
+            <div id="admin-users" class="admin-content" style="display: none;">
+                <!-- Le contenu sera chargé dynamiquement -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/firebase-init.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/ui.js"></script>
+    <script type="module" src="js/booking.js"></script>
+    <script type="module" src="js/events.js"></script>
+    <script type="module" src="js/reviews.js"></script>
+    <script type="module" src="js/cms.js"></script>
+    <script type="module" src="js/admin.js"></script>
+    <script type="module">
+        import './js/auth.js';
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialiser les icônes Lucide
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+            
+            // Les modules se chargent automatiquement
+            // L'interface admin s'initialise automatiquement
+        });
+    </script>
+</body>
+</html>

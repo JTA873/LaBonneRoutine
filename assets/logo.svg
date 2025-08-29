@@ -1,0 +1,42 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9E3728;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="rgba(0,0,0,0.2)"/>
+    </filter>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="50" cy="50" r="45" fill="url(#logoGradient)" filter="url(#shadow)"/>
+  
+  <!-- Inner Circle -->
+  <circle cx="50" cy="50" r="35" fill="none" stroke="#F6EFE9" stroke-width="2" opacity="0.8"/>
+  
+  <!-- Stylized Lotus/Leaf Symbol -->
+  <g transform="translate(50,50)">
+    <!-- Central Stem -->
+    <line x1="0" y1="15" x2="0" y2="-10" stroke="#F6EFE9" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Left Leaf -->
+    <path d="M-15,-5 Q-20,-15 -10,-20 Q0,-15 0,-5" fill="#F6EFE9" opacity="0.9"/>
+    
+    <!-- Right Leaf -->
+    <path d="M15,-5 Q20,-15 10,-20 Q0,-15 0,-5" fill="#F6EFE9" opacity="0.9"/>
+    
+    <!-- Bottom Petals -->
+    <path d="M-8,5 Q-15,10 -8,15 Q0,10 0,5" fill="#FAF6F1" opacity="0.8"/>
+    <path d="M8,5 Q15,10 8,15 Q0,10 0,5" fill="#FAF6F1" opacity="0.8"/>
+    
+    <!-- Center Dot -->
+    <circle cx="0" cy="-5" r="3" fill="#FAF6F1"/>
+  </g>
+  
+  <!-- Subtle Ring Animation -->
+  <circle cx="50" cy="50" r="25" fill="none" stroke="#FAF6F1" stroke-width="1" opacity="0.5">
+    <animate attributeName="r" values="25;30;25" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.5;0.2;0.5" dur="3s" repeatCount="indefinite"/>
+  </circle>
+</svg>

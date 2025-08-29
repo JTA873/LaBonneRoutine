@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Fichiers à exclure de l'indexation
+Disallow: /admin.html
+Disallow: /dashboard.html
+Disallow: /login.html
+Disallow: /js/
+Disallow: /css/
+Disallow: *.json
+
+# Sitemap
+Sitemap: https://labonne-routine.web.app/sitemap.xml

@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - La Bonne Routine</title>
+    <meta name="description" content="Contactez La Bonne Routine pour toutes vos questions sur le coaching et développement personnel">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <style>
+        /* Styles spécifiques à la page contact */
+        .contact-page {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding-top: 100px;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #111111;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: #6B7280;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .coach-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .coach-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #9E3728, #F59E0B);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 15px 35px rgba(158, 55, 40, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coach-avatar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1494790108755-2616b22b1c21?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80') center/cover;
+            border-radius: 50%;
+        }
+
+        .coach-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111111;
+            margin-bottom: 0.5rem;
+        }
+
+        .coach-title {
+            color: #9E3728;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .coach-description {
+            color: #6B7280;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .contact-methods {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #F8FAFC;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            background: #F1F5F9;
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #9E3728, #F59E0B);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            margin: 0 0 0.25rem 0;
+            font-weight: 600;
+            color: #111111;
+        }
+
+        .contact-details a,
+        .contact-details span {
+            color: #6B7280;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: #9E3728;
+        }
+
+        .contact-form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111111;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.875rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 1rem;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: #FAFAFA;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: #9E3728;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(158, 55, 40, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #9E3728, #7A2A1E);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(158, 55, 40, 0.3);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .schedule-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .schedule-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #111111;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .schedule-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: #F8FAFC;
+            border-radius: 12px;
+            border-left: 4px solid #9E3728;
+        }
+
+        .schedule-day {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .schedule-hours {
+            color: #6B7280;
+            font-weight: 500;
+        }
+
+        .schedule-note {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(158, 55, 40, 0.05), rgba(245, 158, 11, 0.05));
+            border-radius: 12px;
+            color: #6B7280;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .faq-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111111;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .faq-item {
+            border: 2px solid #F3F4F6;
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: #E5E7EB;
+        }
+
+        .faq-item.active {
+            border-color: #9E3728;
+            box-shadow: 0 5px 15px rgba(158, 55, 40, 0.1);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #374151;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #F8FAFC;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #FAFAFA;
+        }
+
+        .faq-answer-content {
+            padding: 1.5rem;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+            color: #9E3728;
+        }
+
+        .error-message {
+            background: #FEE2E2;
+            border: 1px solid #FECACA;
+            color: #DC2626;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .success-message {
+            background: #D1FAE5;
+            border: 1px solid #A7F3D0;
+            color: #065F46;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #9E3728, #7A2A1E);
+            color: white;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-description {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-btn {
+            background: white;
+            color: #9E3728;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animations d'entrée */
+        .contact-info-card,
+        .contact-form-card,
+        .schedule-card,
+        .faq-section,
+        .cta-section {
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .contact-container {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .coach-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2rem;
+            }
+
+            .cta-section {
+                padding: 2rem 1rem;
+            }
+
+            .cta-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" style="position: fixed; top: 0; z-index: 1000;">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="assets/logo.svg" alt="La Bonne Routine" class="logo">
+                <span class="brand-text">La Bonne Routine</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="index.html#services" class="nav-link">Services</a>
+                <a href="reserve.html" class="nav-link">Réserver</a>
+                <a href="events.html" class="nav-link">Événements</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+                <div class="nav-auth">
+                    <a href="signup.html" class="btn btn-primary" id="signupBtn">Inscription</a>
+                    <a href="login.html" class="btn btn-outline" id="loginBtn">Connexion</a>
+                    <a href="dashboard.html" class="btn btn-primary hidden" id="dashboardBtn">Mon compte</a>
+                    <button class="btn btn-outline hidden" id="logoutBtn">Déconnexion</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="contact-page">
+        <div class="contact-container">
+            <!-- En-tête de la page -->
+            <div class="page-header">
+                <h1 class="page-title">Contactez-nous</h1>
+                <p class="page-subtitle">
+                    Une question ? Un projet ? N'hésitez pas à nous écrire. Nous sommes là pour vous accompagner dans votre parcours de développement personnel.
+                </p>
+            </div>
+
+            <!-- Grille principale -->
+            <div class="contact-grid">
+                <!-- Informations de contact -->
+                <div class="contact-info-card">
+                    <div class="coach-info">
+                        <div class="coach-avatar">M</div>
+                        <h2 class="coach-name">Myriam TARAF</h2>
+                        <p class="coach-title">Coach en développement personnel</p>
+                        <p class="coach-description">
+                            Passionnée par l'accompagnement humain, je vous aide à révéler votre potentiel et à créer la vie qui vous ressemble. Chaque parcours est unique, chaque objectif mérite une approche personnalisée.
+                        </p>
+                    </div>
+
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="contact-icon">📞</div>
+                            <div class="contact-details">
+                                <h4>Téléphone</h4>
+                                <a href="tel:0640240616">06 40 24 06 16</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <a href="mailto:contact@labonneroutine.fr">contact@labonneroutine.fr</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-details">
+                                <h4>Zone d'intervention</h4>
+                                <span>Paris & Île-de-France</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <div class="contact-icon">📱</div>
+                            <div class="contact-details">
+                                <h4>Instagram</h4>
+                                <a href="https://instagram.com/labonne.routine" target="_blank">@labonne.routine</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulaire de contact -->
+                <div class="contact-form-card">
+                    <h2 class="form-title">
+                        💬 Envoyez-nous un message
+                    </h2>
+
+                    <!-- Messages -->
+                    <div id="error-message" class="error-message"></div>
+                    <div id="success-message" class="success-message"></div>
+
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Nom complet *</label>
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    name="name"
+                                    class="form-input" 
+                                    placeholder="Votre nom complet"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Email *</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email"
+                                    class="form-input" 
+                                    placeholder="votre@email.com"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Téléphone</label>
+                                <input 
+                                    type="tel" 
+                                    id="phone" 
+                                    name="phone"
+                                    class="form-input" 
+                                    placeholder="06 12 34 56 78"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Sujet</label>
+                                <select id="subject" name="subject" class="form-select">
+                                    <option value="">Choisissez un sujet</option>
+                                    <option value="info">Demande d'informations</option>
+                                    <option value="coaching">Coaching individuel</option>
+                                    <option value="developpement">Développement personnel</option>
+                                    <option value="atelier">Ateliers SAP</option>
+                                    <option value="tarifs">Tarifs et modalités</option>
+                                    <option value="autre">Autre</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label class="form-label">Message *</label>
+                            <textarea 
+                                id="message" 
+                                name="message"
+                                class="form-textarea" 
+                                placeholder="Décrivez vos objectifs, vos questions, ou tout ce que vous souhaitez partager avec nous..."
+                                required
+                            ></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <span class="loading-spinner" id="loadingSpinner"></span>
+                            <span id="submitText">📨 Envoyer le message</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Horaires -->
+            <div class="schedule-card">
+                <h2 class="schedule-title">
+                    🕐 Horaires de disponibilité
+                </h2>
+                
+                <div class="schedule-grid">
+                    <div class="schedule-item">
+                        <span class="schedule-day">Lundi - Vendredi</span>
+                        <span class="schedule-hours">9h00 - 19h00</span>
+                    </div>
+                    
+                    <div class="schedule-item">
+                        <span class="schedule-day">Samedi</span>
+                        <span class="schedule-hours">10h00 - 17h00</span>
+                    </div>
+                    
+                    <div class="schedule-item">
+                        <span class="schedule-day">Dimanche</span>
+                        <span class="schedule-hours">Sur demande</span>
+                    </div>
+                </div>
+
+                <div class="schedule-note">
+                    ℹ️ Les horaires peuvent être adaptés selon vos besoins et contraintes personnelles
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="faq-section">
+                <h2 class="faq-title">Questions fréquentes</h2>
+                
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Comment se déroule une première séance de coaching ?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                La première séance commence par un bilan approfondi de votre situation actuelle, vos objectifs et vos motivations. Nous établissons ensemble un plan d'accompagnement personnalisé et définissons les étapes concrètes pour atteindre vos objectifs. Cette séance découverte est gratuite et sans engagement.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Quelle est la différence entre coaching et développement personnel ?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Le coaching se concentre sur l'atteinte d'objectifs spécifiques avec un plan d'action concret. Le développement personnel explore plus largement votre potentiel, votre connaissance de soi et votre épanouissement global. Les deux approches sont complémentaires et adaptées selon vos besoins.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Comment fonctionnent les ateliers SAP ?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Les ateliers SAP (Soutien, Accompagnement, Partage) sont des sessions collectives de 6-8 personnes maximum. Ils favorisent l'échange d'expériences, le soutien mutuel et l'apprentissage collectif sur des thématiques spécifiques comme la gestion du stress, la confiance en soi, ou les relations interpersonnelles.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Puis-je annuler ou reporter un rendez-vous ?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Oui, vous pouvez annuler ou reporter une séance en prévenant au moins 24h à l'avance. Cette flexibilité permet de maintenir une relation de confiance et de s'adapter aux imprévus de la vie quotidienne.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Proposez-vous des séances en ligne ?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Oui, je propose des séances de coaching en visioconférence pour s'adapter à vos contraintes géographiques ou d'agenda. L'efficacité du coaching reste la même, avec tous les outils et la qualité d'accompagnement habituelle.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to action -->
+            <div class="cta-section">
+                <h2 class="cta-title">Prêt(e) à commencer votre transformation ?</h2>
+                <p class="cta-description">
+                    Réservez dès maintenant votre séance découverte gratuite et faites le premier pas vers vos objectifs.
+                </p>
+                <a href="reserve.html?type=decouverte" class="cta-btn">
+                    🚀 Réserver ma séance gratuite
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script type="module" src="js/firebase-init.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module">
+        import { auth } from './js/firebase-init.js';
+        import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+
+        let currentUser = null;
+
+        // Éléments DOM
+        const contactForm = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const phoneInput = document.getElementById('phone');
+        const submitBtn = document.getElementById('submitBtn');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const submitText = document.getElementById('submitText');
+        const errorMessage = document.getElementById('error-message');
+        const successMessage = document.getElementById('success-message');
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            animateElements();
+        });
+
+        // Gestion de l'authentification
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            updateAuthDisplay();
+            prefillUserData();
+        });
+
+        function updateAuthDisplay() {
+            const loginBtn = document.getElementById('loginBtn');
+            const dashboardBtn = document.getElementById('dashboardBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            if (currentUser) {
+                loginBtn.classList.add('hidden');
+                dashboardBtn.classList.remove('hidden');
+                logoutBtn.classList.remove('hidden');
+            } else {
+                loginBtn.classList.remove('hidden');
+                dashboardBtn.classList.add('hidden');
+                logoutBtn.classList.add('hidden');
+            }
+        }
+
+        // Pré-remplir avec les données utilisateur
+        function prefillUserData() {
+            if (currentUser) {
+                nameInput.value = currentUser.displayName || '';
+                emailInput.value = currentUser.email || '';
+                // Vous pouvez ajouter le téléphone si disponible dans le profil
+            }
+        }
+
+        // Gestion du formulaire
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: nameInput.value.trim(),
+                email: emailInput.value.trim(),
+                phone: phoneInput.value.trim(),
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value.trim(),
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent
+            };
+
+            if (!formData.name || !formData.email || !formData.message) {
+                showMessage('Veuillez remplir tous les champs obligatoires', 'error');
+                return;
+            }
+
+            setLoading(true);
+            hideMessages();
+
+            try {
+                // Simuler l'envoi (remplacer par votre API)
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                showMessage('Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.', 'success');
+                contactForm.reset();
+                
+                // Pré-remplir à nouveau si utilisateur connecté
+                setTimeout(prefillUserData, 100);
+                
+            } catch (error) {
+                console.error('Erreur envoi:', error);
+                showMessage('Erreur lors de l\'envoi du message. Veuillez réessayer.', 'error');
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // Gestion des FAQ
+        window.toggleFAQ = function(questionElement) {
+            const faqItem = questionElement.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const icon = questionElement.querySelector('.faq-icon');
+            
+            // Fermer les autres FAQ
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem && item.classList.contains('active')) {
+                    item.classList.remove('active');
+                    item.querySelector('.faq-answer').style.maxHeight = '0';
+                    item.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+                }
+            });
+            
+            // Basculer la FAQ actuelle
+            const isActive = faqItem.classList.contains('active');
+            
+            if (isActive) {
+                faqItem.classList.remove('active');
+                answer.style.maxHeight = '0';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                faqItem.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        };
+
+        // Fonctions utilitaires
+        function setLoading(loading) {
+            if (loading) {
+                loadingSpinner.style.display = 'inline-block';
+                submitText.textContent = 'Envoi en cours...';
+                submitBtn.disabled = true;
+            } else {
+                loadingSpinner.style.display = 'none';
+                submitText.textContent = '📨 Envoyer le message';
+                submitBtn.disabled = false;
+            }
+        }
+
+        function showMessage(message, type = 'error') {
+            hideMessages();
+            const messageEl = type === 'error' ? errorMessage : successMessage;
+            messageEl.textContent = message;
+            messageEl.style.display = 'block';
+            
+            // Auto-hide après 5 secondes
+            setTimeout(hideMessages, 5000);
+        }
+
+        function hideMessages() {
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+        }
+
+        function animateElements() {
+            const elements = document.querySelectorAll('.contact-info-card, .contact-form-card, .schedule-card, .faq-section, .cta-section');
+            elements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.1}s`;
+            });
+        }
+    </script>
+</body>
+</html>
